@@ -1,0 +1,2414 @@
+/* ==========================================================================
+   Distrito Brokers — sistema visual
+   Extraído del diseño "Distrito Brokers Home".
+   Un solo sistema aplicado a las 5 páginas.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Tokens
+   -------------------------------------------------------------------------- */
+:root {
+  /* Superficies claras */
+  --cream: #f4f1ec;
+  --cream-alt: #eceae3;
+  --cream-hover: #efeae1;
+  --white: #ffffff;
+
+  /* Azul marino — tinta y superficies oscuras */
+  --navy: #17324e;
+  --navy-hover: #0f2338;
+  --navy-800: #102437;
+  --navy-900: #0c1c2e;
+  --navy-panel: #132a41;
+  --navy-line: #1c3854;
+  --navy-line-2: #24405a;
+  --navy-line-3: #2c4a67;
+  --navy-line-4: #3a5573;
+  --navy-line-5: #3a5a7a;
+  --navy-chip: #22415e;
+  --navy-soft: #13273c;
+
+  /* Acentos de marca (las 4 casillas del logotipo) */
+  --gold: #c0883a;
+  --gold-light: #e6b877;
+  --gold-soft: #e0d3bd;
+  --gold-tint: #f4efe6;
+  --blue: #2f5f9e;
+  --blue-light: #5b8fd4;
+  --blue-tint: #eef2f8;
+  --terra: #b25236;
+  --terra-light: #c96b4c;
+  --green: #4f8a52;
+  --green-light: #67a86a;
+  --green-tint: #eef5ef;
+
+  /* WhatsApp. --wa es el relleno del botón (blanco encima: 5.3:1);
+     --wa-text es la misma familia, ajustada para texto sobre fondo claro. */
+  --wa: #1f7a52;
+  --wa-hover: #1a6746;
+  --wa-text: #1e7851; /* ≥4.5:1 sobre crema, crema-alt y blanco */
+  --wa-dot: #8fe3b6;
+
+  /* Texto sobre claro.
+     --text-2 y --muted se oscurecieron levemente respecto al diseño para que
+     el texto pequeño alcance el contraste AA (4.5:1) sobre el fondo crema.
+     --muted-2 conserva el tono original: solo etiqueta los placeholders de
+     imagen, que son andamiaje temporal y desaparecen al cargar fotografía. */
+  --text: #525d68;      /* 5.97:1 */
+  --text-2: #636a76;    /* ≥4.5:1 — antes #6b7480 (4.20:1) */
+  --text-3: #3c4a57;
+  --muted: #70695d;     /* ≥4.5:1 — antes #8f8676 (3.19:1) */
+  --muted-2: #a89f8e;
+
+  /* Líneas sobre claro */
+  --line: #e3ded4;
+  --line-2: #e0dacf;
+  --line-3: #c9c2b4;
+  --line-4: #d8d1c3;
+
+  /* Texto sobre oscuro */
+  --on-dark: #eef1f4;
+  --on-dark-strong: #f4f6f8;
+  --on-dark-body: #c2ccd6;
+  --on-dark-soft: #b6c2ce;
+  --on-dark-muted: #9fb1c6;
+  --on-dark-muted-2: #8fa6c0;
+  --on-dark-faint: #7792ab; /* ≥4.5:1 sobre las tres superficies oscuras — antes #6f889f */
+  --on-dark-faint-2: #8ea4bb;
+  --on-dark-faint-3: #7f93a8;
+
+  /* Tipografía */
+  --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --sans: "Archivo", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "Space Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Métrica */
+  --maxw: 1360px;
+  --gutter: clamp(20px, 5vw, 64px);
+  --section-y: clamp(72px, 9vw, 128px);
+  --radius: 4px;
+
+  /* Movimiento */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* --------------------------------------------------------------------------
+   2. Base
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* compensa el header sticky al saltar a un ancla */
+  scroll-padding-top: 90px;
+}
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--navy);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--navy);
+  color: var(--cream);
+}
+
+a {
+  color: var(--navy);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--navy-hover);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-weight: 400;
+}
+
+p,
+figure,
+dl,
+dd,
+blockquote {
+  margin: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Salto de accesibilidad */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 200;
+  background: var(--navy);
+  color: var(--cream);
+  padding: 12px 20px;
+  border-radius: 0 0 var(--radius) 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  left: 0;
+  color: var(--cream);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --------------------------------------------------------------------------
+   3. Layout
+   -------------------------------------------------------------------------- */
+.container {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+.section {
+  padding-top: var(--section-y);
+  padding-bottom: var(--section-y);
+}
+
+.section--rule {
+  border-top: 1px solid var(--line);
+}
+
+.section--alt {
+  background: var(--cream-alt);
+  border-top: 1px solid var(--line);
+}
+
+.section--dark {
+  background: var(--navy-800);
+  color: var(--on-dark);
+}
+
+.section--darkest {
+  background: var(--navy-900);
+  color: var(--cream);
+}
+
+.section--dark a:not(.btn),
+.section--darkest a:not(.btn) {
+  color: var(--on-dark-body);
+}
+
+.section--dark a:not(.btn):hover,
+.section--darkest a:not(.btn):hover {
+  color: #ffffff;
+}
+
+/* Rejilla editorial de dos columnas, se apila sola */
+.split {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  gap: clamp(40px, 6vw, 88px);
+  align-items: start;
+}
+
+.split--center {
+  align-items: center;
+}
+
+.split--tight {
+  gap: clamp(24px, 4vw, 48px);
+}
+
+/* --------------------------------------------------------------------------
+   4. Tipografía de composición
+   -------------------------------------------------------------------------- */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 0 24px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.eyebrow::before {
+  content: "";
+  flex: none;
+  height: 1px;
+  width: 38px;
+  background: var(--gold);
+}
+
+.eyebrow--dark {
+  color: var(--on-dark-muted);
+}
+
+.h-display {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(40px, 5.6vw, 68px);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+  text-wrap: balance;
+}
+
+.h-section {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(30px, 3.6vw, 48px);
+  line-height: 1.06;
+  letter-spacing: -0.015em;
+  color: var(--navy);
+  text-wrap: balance;
+}
+
+.h-sub {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(26px, 3vw, 36px);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--navy);
+}
+
+.h-card {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 1.15;
+  color: var(--navy);
+}
+
+.section--dark .h-display,
+.section--dark .h-section,
+.section--dark .h-sub,
+.section--dark .h-card,
+.section--darkest .h-display,
+.section--darkest .h-section,
+.section--darkest .h-sub,
+.section--darkest .h-card {
+  color: var(--on-dark-strong);
+}
+
+.accent-italic {
+  font-style: italic;
+  color: var(--blue);
+}
+
+.lead {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--text);
+  text-wrap: pretty;
+}
+
+.body-text {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--text);
+  text-wrap: pretty;
+}
+
+.section--dark .lead,
+.section--dark .body-text,
+.section--darkest .lead,
+.section--darkest .body-text {
+  color: var(--on-dark-body);
+}
+
+.note {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-2);
+  text-wrap: pretty;
+}
+
+.meta {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+/* Sobre fondo oscuro el dato de teléfono y horario se lee con el mismo tono
+   que el resto del texto del footer: en gris apagado se perdía. */
+.section--dark .meta,
+.section--darkest .meta {
+  color: var(--on-dark-body);
+}
+
+.measure {
+  max-width: 560px;
+}
+
+.measure-sm {
+  max-width: 460px;
+}
+
+.measure-md {
+  max-width: 520px;
+}
+
+/* Encabezado de sección con nota al costado */
+.section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 44px;
+}
+
+.section-head__aside {
+  max-width: 340px;
+}
+
+/* --------------------------------------------------------------------------
+   5. Botones y enlaces de acción
+   -------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 28px;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background 0.22s var(--ease), border-color 0.22s var(--ease),
+    transform 0.22s var(--ease), filter 0.22s var(--ease), color 0.22s var(--ease);
+}
+
+.btn--sm {
+  padding: 11px 20px;
+  font-size: 14px;
+  gap: 9px;
+}
+
+/* En pantallas táctiles ningún botón baja del área mínima de toque */
+@media (pointer: coarse), (max-width: 767px) {
+  .btn {
+    min-height: 44px;
+  }
+}
+
+.btn--md {
+  padding: 15px 26px;
+}
+
+/* WhatsApp — acción principal en todo el sitio */
+.btn--wa {
+  background: var(--wa);
+  color: #ffffff;
+}
+
+.btn--wa:hover {
+  background: var(--wa-hover);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* Contorno sobre fondo claro */
+.btn--outline {
+  background: transparent;
+  color: var(--navy);
+  border-color: var(--line-3);
+}
+
+.btn--outline:hover {
+  background: var(--cream-hover);
+  border-color: var(--navy);
+  color: var(--navy);
+}
+
+/* Sólido azul marino */
+.btn--navy {
+  background: var(--navy);
+  color: var(--cream);
+}
+
+.btn--navy:hover {
+  background: var(--navy-hover);
+  color: var(--cream);
+}
+
+/* Contorno sobre fondo oscuro */
+.btn--ghost {
+  background: transparent;
+  color: var(--cream);
+  border-color: var(--navy-line-4);
+}
+
+.btn--ghost:hover {
+  background: var(--navy-soft);
+  border-color: #5b7591;
+  color: var(--cream);
+}
+
+/* Punto verde que acompaña a los CTA de WhatsApp */
+.dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--wa-dot);
+}
+
+.btn--sm .dot {
+  width: 7px;
+  height: 7px;
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+}
+
+/* Enlace de texto con punto verde (dentro de cards) */
+.link-wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--wa-text);
+  transition: gap 0.22s var(--ease);
+}
+
+.link-wa::before {
+  content: "";
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--wa-text);
+}
+
+.link-wa:hover {
+  color: var(--wa-hover);
+  gap: 11px;
+}
+
+.link-wa--plain::before {
+  display: none;
+}
+
+.link-wa--on-dark {
+  color: var(--wa-dot);
+}
+
+.link-wa--on-dark::before {
+  background: var(--wa-dot);
+}
+
+.link-wa--on-dark:hover {
+  color: var(--wa-dot);
+}
+
+/* Enlace editorial subrayado */
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--navy);
+  border-bottom: 1px solid var(--line-3);
+  padding-bottom: 4px;
+  transition: border-color 0.22s var(--ease), gap 0.22s var(--ease);
+}
+
+.link-arrow:hover {
+  border-color: var(--navy);
+  gap: 12px;
+}
+
+.section--dark .link-arrow,
+.section--darkest .link-arrow {
+  color: var(--on-dark-strong);
+  border-color: var(--navy-line-3);
+}
+
+.section--dark .link-arrow:hover,
+.section--darkest .link-arrow:hover {
+  color: #ffffff;
+  border-color: var(--gold);
+}
+
+/* --------------------------------------------------------------------------
+   6. Marca
+   -------------------------------------------------------------------------- */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.brand__mark {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5px;
+  width: 26px;
+  height: 26px;
+  flex: none;
+}
+
+.brand__mark span {
+  border-radius: 1px;
+}
+
+.brand__mark span:nth-child(1) {
+  background: var(--gold);
+}
+.brand__mark span:nth-child(2) {
+  background: var(--blue);
+}
+.brand__mark span:nth-child(3) {
+  background: var(--terra);
+}
+.brand__mark span:nth-child(4) {
+  background: var(--green);
+}
+
+.brand__name {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.brand__word {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 23px;
+  letter-spacing: -0.01em;
+  color: var(--navy);
+}
+
+.brand__tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Variante para el footer (fondo oscuro) */
+.brand--dark .brand__mark {
+  width: 24px;
+  height: 24px;
+}
+
+.brand--dark .brand__mark span:nth-child(2) {
+  background: var(--blue-light);
+}
+
+.brand--dark .brand__mark span:nth-child(3) {
+  background: var(--terra-light);
+}
+
+.brand--dark .brand__mark span:nth-child(4) {
+  background: var(--green-light);
+}
+
+.brand--dark .brand__word {
+  font-size: 20px;
+  color: var(--on-dark-strong);
+}
+
+.brand--dark .brand__tag {
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  color: var(--on-dark-muted-2);
+}
+
+/* --------------------------------------------------------------------------
+   7. Header
+   -------------------------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  background: rgba(244, 241, 236, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+
+.site-header__inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 15px var(--gutter);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 2.4vw, 34px);
+}
+
+.nav__link {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--text-3);
+  transition: color 0.2s var(--ease);
+}
+
+.nav__link:hover {
+  color: var(--navy);
+}
+
+.nav__link[aria-current="page"] {
+  color: var(--navy);
+  position: relative;
+}
+
+.nav__link[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -7px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.site-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Botón hamburguesa — sólo móvil */
+.nav-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--line-3);
+  border-radius: var(--radius);
+  cursor: pointer;
+  color: var(--navy);
+  transition: border-color 0.22s var(--ease), background 0.22s var(--ease);
+}
+
+.nav-toggle:hover {
+  border-color: var(--navy);
+  background: var(--cream-hover);
+}
+
+.nav-toggle__bars {
+  position: relative;
+  display: block;
+  width: 17px;
+  height: 1.5px;
+  background: currentColor;
+  transition: background 0.2s var(--ease);
+}
+
+.nav-toggle__bars::before,
+.nav-toggle__bars::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 17px;
+  height: 1.5px;
+  background: currentColor;
+  transition: transform 0.26s var(--ease);
+}
+
+.nav-toggle__bars::before {
+  top: -5.5px;
+}
+
+.nav-toggle__bars::after {
+  top: 5.5px;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__bars {
+  background: transparent;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__bars::before {
+  transform: translateY(5.5px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__bars::after {
+  transform: translateY(-5.5px) rotate(-45deg);
+}
+
+/* Panel de navegación móvil */
+.mobile-nav {
+  display: none;
+  border-top: 1px solid var(--line);
+  background: rgba(244, 241, 236, 0.97);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.mobile-nav[data-open="true"] {
+  display: block;
+}
+
+.mobile-nav__inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 10px var(--gutter) 26px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-nav__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--serif);
+  font-size: 21px;
+  color: var(--navy);
+}
+
+.mobile-nav__link span {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--muted-2);
+}
+
+.mobile-nav__link[aria-current="page"] span {
+  color: var(--gold);
+}
+
+.mobile-nav .btn {
+  margin-top: 24px;
+  justify-content: center;
+}
+
+@media (max-width: 1023px) {
+  .nav,
+  .site-header__actions .btn {
+    display: none;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   8. Marcos de imagen
+   .ph es el marco editorial del diseño. Con fotografía dentro, la trama
+   diagonal queda como fondo mientras la imagen carga; sin <img>, sigue
+   funcionando como espacio reservado.
+   -------------------------------------------------------------------------- */
+.ph {
+  position: relative;
+  overflow: hidden;
+  background: repeating-linear-gradient(
+    135deg,
+    #e6e0d4,
+    #e6e0d4 1px,
+    #efeae0 1px,
+    #efeae0 13px
+  );
+  border: 1px solid var(--line-2);
+}
+
+.ph img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ph--deep {
+  background: repeating-linear-gradient(
+    135deg,
+    #ddd6c9,
+    #ddd6c9 1px,
+    #e8e2d6 1px,
+    #e8e2d6 14px
+  );
+  border-color: var(--line-4);
+}
+
+.ph--navy {
+  background: var(--navy);
+  border-color: var(--navy);
+}
+
+.ph__tag {
+  position: absolute;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted-2);
+  line-height: 1.4;
+}
+
+.ph__tag--tl {
+  top: 14px;
+  left: 14px;
+  right: 14px;
+}
+
+.ph__tag--bl {
+  left: 14px;
+  bottom: 14px;
+  right: 14px;
+}
+
+.ph--navy .ph__tag {
+  color: var(--on-dark-muted-2);
+}
+
+.ratio-43 {
+  aspect-ratio: 4 / 3;
+}
+.ratio-169 {
+  aspect-ratio: 16 / 9;
+}
+.ratio-34 {
+  aspect-ratio: 3 / 4;
+}
+.ratio-hero {
+  aspect-ratio: 3 / 4.4;
+}
+
+/* Composición de barras de colores (aparece en hero, servicios y CTA) */
+.bars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.bars span {
+  width: 34px;
+  border-radius: 1px;
+}
+
+.bars span:nth-child(1) {
+  height: 48px;
+  background: var(--gold);
+}
+.bars span:nth-child(2) {
+  height: 64px;
+  background: var(--blue-light);
+  align-self: end;
+}
+.bars span:nth-child(3) {
+  height: 40px;
+  background: var(--green-light);
+  align-self: center;
+}
+
+.swatches {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  width: 52px;
+}
+
+.swatches span {
+  height: 22px;
+  border-radius: 1px;
+}
+
+.swatches span:nth-child(1) {
+  background: var(--gold);
+}
+.swatches span:nth-child(2) {
+  background: var(--blue-light);
+}
+.swatches span:nth-child(3) {
+  background: var(--terra-light);
+}
+.swatches span:nth-child(4) {
+  background: var(--green-light);
+}
+
+/* --------------------------------------------------------------------------
+   9. Hero
+   -------------------------------------------------------------------------- */
+.hero {
+  position: relative;
+  padding-top: clamp(48px, 7vw, 96px);
+  padding-bottom: clamp(56px, 7vw, 104px);
+}
+
+.hero__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
+  gap: clamp(36px, 5vw, 72px);
+  align-items: center;
+}
+
+.hero__body {
+  max-width: 560px;
+}
+
+.hero .h-display {
+  margin-bottom: 26px;
+}
+
+.hero .lead {
+  margin-bottom: 36px;
+}
+
+/* Tira de servicios bajo el hero */
+.hero__strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 26px;
+  margin-top: 44px;
+  padding-top: 30px;
+  border-top: 1px solid var(--line);
+}
+
+.hero__strip li {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.hero__strip li + li::before {
+  content: "·";
+  color: var(--line-3);
+  margin-right: 26px;
+  margin-left: -14px;
+}
+
+/* Collage editorial */
+.collage {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  grid-template-rows: auto auto;
+  gap: 14px;
+}
+
+.collage__tall {
+  grid-row: span 2;
+}
+
+.collage__panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 18px;
+}
+
+.collage__panel .ph__tag {
+  position: static;
+}
+
+/* Hero de páginas internas: más compacto, misma voz */
+.page-hero {
+  padding-top: clamp(44px, 6vw, 84px);
+  padding-bottom: clamp(48px, 6vw, 88px);
+  border-bottom: 1px solid var(--line);
+}
+
+.page-hero__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+}
+
+.page-hero .h-display {
+  font-size: clamp(38px, 4.8vw, 60px);
+  margin-bottom: 22px;
+}
+
+.page-hero .lead {
+  margin-bottom: 32px;
+}
+
+/* Migas de pan */
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 22px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.breadcrumb a {
+  color: var(--text-2);
+}
+
+.breadcrumb a:hover {
+  color: var(--navy);
+}
+
+.breadcrumb li + li::before {
+  content: "/";
+  margin-right: 8px;
+  color: var(--line-3);
+}
+
+.breadcrumb li {
+  display: flex;
+  align-items: center;
+}
+
+/* --------------------------------------------------------------------------
+   10. Diagrama de convergencia (Máster Broker)
+   -------------------------------------------------------------------------- */
+.converge {
+  position: relative;
+  padding: clamp(24px, 3vw, 40px);
+  border: 1px solid var(--navy-line-2);
+  background: var(--navy-panel);
+}
+
+.converge__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.converge__row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.converge__chip {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  background: var(--accent, var(--gold));
+}
+
+.converge__line {
+  flex: 1;
+  height: 1px;
+  min-width: 20px;
+  background: linear-gradient(90deg, var(--navy-line-2), var(--navy-line-5));
+}
+
+.converge__label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--on-dark-faint-2);
+  white-space: nowrap;
+}
+
+.converge__hub {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 6px 0;
+}
+
+.converge__badge {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: var(--wa);
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.converge__badge .dot {
+  width: 7px;
+  height: 7px;
+}
+
+.converge__hub .converge__line {
+  background: var(--navy-line-5);
+}
+
+.converge__out {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  white-space: nowrap;
+}
+
+.converge__foot {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--on-dark-faint);
+  margin: 26px 0 0;
+}
+
+@media (max-width: 479px) {
+  .converge__label,
+  .converge__out {
+    white-space: normal;
+  }
+
+  .converge__hub {
+    flex-wrap: wrap;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   11. Cards
+   -------------------------------------------------------------------------- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  gap: 16px;
+}
+
+.card-grid--wide {
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+}
+
+/* Card "¿Qué estás buscando?" — numerada, con filo de color */
+.choice {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 280px;
+  padding: 26px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--accent, var(--gold));
+  border-radius: var(--radius);
+  transition: transform 0.24s var(--ease), box-shadow 0.24s var(--ease);
+}
+
+.choice:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 44px -26px rgba(23, 50, 78, 0.35);
+}
+
+.choice__idx {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: var(--accent, var(--gold));
+}
+
+.choice h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 25px;
+  line-height: 1.15;
+  color: var(--navy);
+  margin-bottom: 10px;
+}
+
+.choice p {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-2);
+  margin-bottom: 18px;
+}
+
+/* Variante compacta: índice de servicios en el hero */
+.card-grid--index {
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.card-grid--index .choice {
+  min-height: 0;
+  flex-direction: row;
+  align-items: center;
+  gap: 18px;
+  padding: 20px 22px;
+}
+
+.card-grid--index .choice h3 {
+  font-size: 21px;
+  margin-bottom: 4px;
+}
+
+.card-grid--index .choice p {
+  margin-bottom: 10px;
+}
+
+/* Card genérica sobre fondo claro */
+.card {
+  padding: 28px 24px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.card p {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+
+.card .h-card {
+  margin-bottom: 8px;
+}
+
+/* Una card clara conserva su propia paleta aunque viva dentro de una sección
+   oscura: sin esto, las reglas .section--dark .h-card la dejarían en blanco
+   sobre blanco (ocurría en el proceso de /propiedades). */
+.section--dark .card:not(.card--navy) .h-card,
+.section--darkest .card:not(.card--navy) .h-card {
+  color: var(--navy);
+}
+
+.section--dark .card:not(.card--navy) p,
+.section--darkest .card:not(.card--navy) p {
+  color: var(--text-2);
+}
+
+/* La variante oscura va después de .card p para ganar el desempate por orden. */
+.card--navy {
+  background: var(--navy);
+  border-color: var(--navy);
+}
+
+.card--navy .h-card,
+.section--dark .card--navy .h-card,
+.section--darkest .card--navy .h-card {
+  color: var(--on-dark-strong);
+}
+
+.card--navy p,
+.section--dark .card--navy p,
+.section--darkest .card--navy p {
+  color: var(--on-dark-soft);
+}
+
+/* Paso numerado (proceso) */
+.step__num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--step-bg, var(--gold-tint));
+  color: var(--step-fg, var(--gold));
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 22px;
+}
+
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+  gap: 14px;
+}
+
+/* --------------------------------------------------------------------------
+   12. Servicios — filas alternadas
+   -------------------------------------------------------------------------- */
+.service-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: 14px 40px;
+  align-items: center;
+  padding: 52px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.service-row:first-of-type {
+  padding-top: 0;
+}
+
+.service-row:last-of-type {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.service-row__body {
+  max-width: 520px;
+}
+
+.service-row__idx {
+  display: block;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 44px;
+  line-height: 1;
+  color: var(--gold-soft);
+}
+
+.service-row .h-sub {
+  margin: 14px 0 16px;
+}
+
+.service-row__body p {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text);
+  text-wrap: pretty;
+}
+
+/* En pantallas anchas invierte el orden en las filas pares */
+@media (min-width: 700px) {
+  .service-row--flip .service-row__media {
+    order: -1;
+  }
+}
+
+.service-row__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --------------------------------------------------------------------------
+   13. Bento de opciones inmobiliarias
+   -------------------------------------------------------------------------- */
+.bento {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  grid-auto-rows: 200px;
+  gap: 14px;
+}
+
+.bento__item {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px;
+  transition: transform 0.3s var(--ease);
+}
+
+.bento__item:hover {
+  transform: scale(1.012);
+}
+
+/* El texto del bento va encima de la fotografía: un velo crema arriba y abajo
+   mantiene legible la tipografía azul marino sobre cualquier imagen. */
+.bento__item:not(.bento__item--navy)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(
+      to top,
+      rgba(244, 241, 236, 0.97) 0%,
+      rgba(244, 241, 236, 0.86) 32%,
+      rgba(244, 241, 236, 0) 66%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(244, 241, 236, 0.92) 0%,
+      rgba(244, 241, 236, 0) 26%
+    );
+}
+
+.bento__item > img {
+  z-index: 0;
+}
+
+/* Basta con z-index: los hijos en flujo son ítems flex (que lo respetan aunque
+   sean position:static) y la etiqueta ya viene posicionada en absoluto. Poner
+   position:relative aquí la sacaría de su esquina. */
+.bento__item > *:not(img) {
+  z-index: 1;
+}
+
+/* La etiqueta de esquina cae sobre la zona más variable de la foto (cielos,
+   fachadas claras), donde un degradado no garantiza contraste. Se le da su
+   propio respaldo crema: legible sea cual sea la imagen que se cargue. */
+.bento__item .ph__tag {
+  color: var(--navy);
+  background: rgba(244, 241, 236, 0.93);
+  padding: 5px 9px;
+  border-radius: var(--radius);
+}
+
+.bento__item .ph__tag--tl {
+  right: auto;
+  max-width: calc(100% - 28px);
+}
+
+.bento__item--tall {
+  grid-row: span 2;
+}
+
+.bento__item--wide {
+  grid-column: span 2;
+}
+
+.bento__item--navy {
+  justify-content: space-between;
+}
+
+.bento__title {
+  position: relative;
+  z-index: 1;
+  font-family: var(--serif);
+  font-size: 24px;
+  line-height: 1.15;
+  color: var(--navy);
+}
+
+.bento__title--sm {
+  font-size: 21px;
+}
+
+.bento__item--navy .bento__title {
+  color: var(--on-dark-strong);
+  display: block;
+}
+
+.bento__desc {
+  font-size: 13px;
+  color: #57616c;
+  margin-top: 6px;
+}
+
+.bento__item .link-wa {
+  margin-top: 12px;
+  font-size: 13px;
+}
+
+@media (max-width: 639px) {
+  .bento {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 190px;
+  }
+
+  .bento__item--wide {
+    grid-column: span 1;
+  }
+
+  .bento__item--tall {
+    grid-row: span 1;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   14. Testimonios (estado vacío)
+   -------------------------------------------------------------------------- */
+.testimonial-empty {
+  max-width: 760px;
+}
+
+.testimonial-empty__quote {
+  display: block;
+  height: 40px;
+  font-family: var(--serif);
+  font-size: 72px;
+  line-height: 0.5;
+  color: var(--gold);
+}
+
+.skeleton-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 8px 0 28px;
+}
+
+.skeleton-lines span {
+  height: 14px;
+  background: var(--navy-line);
+  border-radius: 2px;
+}
+
+.skeleton-lines span:nth-child(1) {
+  width: 96%;
+}
+.skeleton-lines span:nth-child(2) {
+  width: 88%;
+}
+.skeleton-lines span:nth-child(3) {
+  width: 64%;
+}
+
+.skeleton-author {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.skeleton-author__avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--navy-line);
+  flex: none;
+}
+
+.skeleton-author__lines {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.skeleton-author__lines span {
+  background: var(--navy-line);
+  border-radius: 2px;
+}
+
+.skeleton-author__lines span:nth-child(1) {
+  height: 11px;
+  width: 120px;
+}
+
+.skeleton-author__lines span:nth-child(2) {
+  height: 9px;
+  width: 80px;
+}
+
+.reserved {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.reserved__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--on-dark-faint);
+  border: 1px dashed var(--navy-line-3);
+  padding: 8px 14px;
+  border-radius: var(--radius);
+}
+
+.reserved__dots {
+  display: flex;
+  gap: 6px;
+}
+
+.reserved__dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--navy-line-3);
+}
+
+.reserved__dots span:first-child {
+  background: var(--gold);
+}
+
+/* --------------------------------------------------------------------------
+   15. CTA final
+   -------------------------------------------------------------------------- */
+.cta {
+  position: relative;
+  overflow: hidden;
+}
+
+.cta__decor {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  padding: 28px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.cta__decor span {
+  width: 20px;
+  height: 20px;
+}
+
+.cta__decor span:nth-child(1) {
+  background: var(--gold);
+}
+.cta__decor span:nth-child(2) {
+  background: var(--blue);
+}
+.cta__decor span:nth-child(3) {
+  background: var(--terra);
+}
+.cta__decor span:nth-child(4) {
+  background: var(--green);
+}
+
+.cta__inner {
+  position: relative;
+  padding-top: clamp(80px, 10vw, 140px);
+  padding-bottom: clamp(80px, 10vw, 140px);
+  max-width: 720px;
+}
+
+.cta .h-display {
+  font-size: clamp(38px, 5.4vw, 68px);
+  margin-bottom: 24px;
+}
+
+.cta .lead {
+  margin-bottom: 40px;
+}
+
+.cta__foot {
+  margin-top: 32px;
+}
+
+@media (max-width: 639px) {
+  .cta__decor {
+    padding: 16px;
+    gap: 4px;
+  }
+
+  .cta__decor span {
+    width: 13px;
+    height: 13px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   16. Footer
+   -------------------------------------------------------------------------- */
+.site-footer {
+  background: var(--navy-900);
+  color: var(--on-dark-body);
+  border-top: 1px solid var(--navy-line);
+}
+
+.site-footer__inner {
+  padding-top: clamp(56px, 7vw, 88px);
+  padding-bottom: 36px;
+}
+
+.site-footer__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+  gap: 40px;
+  padding-bottom: 44px;
+  border-bottom: 1px solid var(--navy-line);
+}
+
+.site-footer__brand {
+  min-width: 220px;
+}
+
+.site-footer__brand .brand {
+  margin-bottom: 18px;
+}
+
+.site-footer__slogan {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.4;
+  color: var(--on-dark-muted);
+  max-width: 260px;
+}
+
+.site-footer__title {
+  display: block;
+  margin-bottom: 18px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--on-dark-faint);
+}
+
+.site-footer__list {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.site-footer__list li,
+.site-footer__list a {
+  font-size: 14px;
+  color: var(--on-dark-body);
+}
+
+.site-footer__list a:hover {
+  color: #ffffff;
+}
+
+.site-footer__contact {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  align-items: flex-start;
+}
+
+/* El teléfono del footer no está en una .site-footer__list, así que sin esta
+   regla heredaba el azul marino de `a` y quedaba ilegible sobre el fondo. */
+.site-footer__contact a:not(.btn) {
+  font-size: 14px;
+  color: var(--on-dark-body);
+}
+
+.site-footer__contact a:not(.btn):hover {
+  color: #ffffff;
+}
+
+.site-footer__hours {
+  font-size: 13px;
+  color: var(--on-dark-muted-2);
+  line-height: 1.5;
+}
+
+.site-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 28px;
+}
+
+.site-footer__bottom span {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--on-dark-faint);
+}
+
+/* --------------------------------------------------------------------------
+   17. Botón flotante de WhatsApp
+   -------------------------------------------------------------------------- */
+.wa-float {
+  position: fixed;
+  right: clamp(16px, 3vw, 28px);
+  bottom: clamp(16px, 3vw, 28px);
+  z-index: 70;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  background: var(--wa);
+  color: #ffffff;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 18px 34px -18px rgba(12, 28, 46, 0.7);
+  transition: background 0.22s var(--ease), transform 0.22s var(--ease);
+}
+
+.wa-float:hover {
+  background: var(--wa-hover);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.wa-float__icon {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+@media (max-width: 599px) {
+  .wa-float {
+    padding: 15px;
+    gap: 0;
+  }
+
+  .wa-float__label {
+    display: none;
+  }
+
+  .wa-float__icon {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   18. Flujo "Cómo trabajamos"
+   -------------------------------------------------------------------------- */
+.flow {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr;
+  align-items: stretch;
+}
+
+@media (min-width: 960px) {
+  .flow {
+    grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+  }
+}
+
+.flow__step {
+  padding: 26px 22px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--accent, var(--gold));
+  border-radius: var(--radius);
+}
+
+.flow__idx {
+  display: block;
+  margin-bottom: 16px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: var(--accent, var(--gold));
+}
+
+.flow__step h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 21px;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.flow__step p {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+
+.flow__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 18px;
+  color: var(--gold);
+  transform: rotate(90deg);
+}
+
+@media (min-width: 960px) {
+  .flow__link {
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   19. Ledger — valores y diferenciadores
+   -------------------------------------------------------------------------- */
+.ledger {
+  border-top: 1px solid var(--line);
+}
+
+.ledger__item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 20px 28px;
+  align-items: start;
+  padding: 32px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+@media (max-width: 759px) {
+  /* En móvil el texto ocupa el ancho completo, bajo el número y el título */
+  .ledger__item > p {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 760px) {
+  .ledger__item {
+    grid-template-columns: 90px 1fr 1.1fr;
+    gap: 40px;
+    align-items: center;
+  }
+}
+
+.ledger__num {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 44px;
+  line-height: 1;
+  color: var(--gold-soft);
+}
+
+.ledger__item h3 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(22px, 2.4vw, 30px);
+  line-height: 1.15;
+  color: var(--navy);
+  position: relative;
+}
+
+.ledger__item h3::before {
+  content: "";
+  position: absolute;
+  left: -14px;
+  top: 0.42em;
+  width: 6px;
+  height: 6px;
+  border-radius: 1px;
+  background: var(--accent, var(--gold));
+}
+
+.ledger__item p {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text);
+  text-wrap: pretty;
+}
+
+.ledger__item > div:nth-of-type(1) {
+  padding-left: 14px;
+}
+
+/* --------------------------------------------------------------------------
+   20. Tarjetas de propiedad / desarrollo (informativas, no transaccionales)
+   -------------------------------------------------------------------------- */
+.prop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+  gap: 20px;
+}
+
+.prop {
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform 0.24s var(--ease), box-shadow 0.24s var(--ease);
+}
+
+.prop:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 44px -26px rgba(23, 50, 78, 0.35);
+}
+
+.prop__media {
+  aspect-ratio: 4 / 3;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.prop__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 22px 22px 24px;
+  border-top: 3px solid var(--accent, var(--gold));
+}
+
+.prop__badge {
+  align-self: flex-start;
+  margin-bottom: 14px;
+  padding: 5px 10px;
+  border: 1px dashed var(--line-3);
+  border-radius: var(--radius);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.prop h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.15;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.prop__desc {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-2);
+  margin-bottom: 18px;
+}
+
+.prop__meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 16px;
+  margin: 0 0 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.prop__meta dt {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.prop__meta dd {
+  margin: 0;
+  font-size: 14px;
+  color: var(--navy);
+}
+
+.prop__body .link-wa {
+  margin-top: auto;
+}
+
+/* Aviso de contenido de demostración */
+.notice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 22px;
+  border: 1px dashed var(--line-3);
+  border-radius: var(--radius);
+  background: var(--white);
+}
+
+.notice__tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  /* Oro oscurecido: este rótulo advierte que el contenido es de
+     demostración, así que debe leerse con claridad (5.1:1 sobre blanco). */
+  color: #90662b;
+  border: 1px solid var(--gold-soft);
+  border-radius: var(--radius);
+  padding: 5px 10px;
+  flex: none;
+}
+
+.notice p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-2);
+  flex: 1 1 260px;
+}
+
+.notice--dark {
+  background: var(--navy-panel);
+  border-color: var(--navy-line-3);
+}
+
+.notice--dark p {
+  color: var(--on-dark-muted);
+}
+
+.notice--dark .notice__tag {
+  color: var(--gold-light);
+  border-color: var(--navy-line-3);
+}
+
+/* --------------------------------------------------------------------------
+   21. Formulario
+   -------------------------------------------------------------------------- */
+.form {
+  display: grid;
+  gap: 20px;
+}
+
+.form__row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  gap: 20px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field__label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.field__hint {
+  font-size: 13px;
+  color: var(--text-2);
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--white);
+  border: 1px solid var(--line-3);
+  border-radius: var(--radius);
+  font-family: var(--sans);
+  font-size: 15px;
+  color: var(--navy);
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+
+.field textarea {
+  min-height: 130px;
+  resize: vertical;
+  line-height: 1.55;
+}
+
+.field select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath fill='%2317324e' d='M1 1.5 6 6.5l5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 12px 8px;
+  padding-right: 42px;
+}
+
+.field input:hover,
+.field select:hover,
+.field textarea:hover {
+  border-color: var(--muted);
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--navy);
+  box-shadow: 0 0 0 3px rgba(47, 95, 158, 0.14);
+}
+
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible {
+  outline: none;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: #9aa3ad;
+}
+
+.form__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+
+.form__note {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-2);
+  flex: 1 1 240px;
+}
+
+.form__status {
+  margin: 0;
+  font-size: 14px;
+  color: var(--wa);
+  font-weight: 600;
+}
+
+.form__status:empty {
+  display: none;
+}
+
+/* Panel de datos de contacto */
+.contact-panel {
+  padding: clamp(28px, 3.4vw, 44px);
+  background: var(--navy-800);
+  color: var(--on-dark);
+  border-radius: var(--radius);
+}
+
+.contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  margin-top: 30px;
+}
+
+.contact-list__item {
+  padding-bottom: 26px;
+  border-bottom: 1px solid var(--navy-line);
+}
+
+.contact-list__item:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.contact-list__label {
+  display: block;
+  margin-bottom: 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--on-dark-faint);
+}
+
+.contact-list__value {
+  font-family: var(--serif);
+  font-size: 24px;
+  line-height: 1.25;
+  color: var(--on-dark-strong);
+}
+
+a.contact-list__value:hover {
+  color: #ffffff;
+}
+
+.contact-list__meta {
+  display: block;
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--on-dark-muted-2);
+}
+
+/* --------------------------------------------------------------------------
+   22. Animaciones de aparición
+   -------------------------------------------------------------------------- */
+/* El estado oculto sólo se aplica cuando main.js ya montó el observador y
+   añadió .reveal-on-scroll al <html>. Si el script no carga, falla o el
+   navegador no soporta IntersectionObserver, el contenido se ve siempre:
+   nunca dependemos del JavaScript para que el texto sea visible. */
+.reveal-on-scroll .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+
+.reveal-on-scroll .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal-on-scroll .reveal,
+  .reveal-on-scroll .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   23. Utilidades
+   -------------------------------------------------------------------------- */
+.stack-8 > * + * {
+  margin-top: 8px;
+}
+.stack-16 > * + * {
+  margin-top: 16px;
+}
+.stack-20 > * + * {
+  margin-top: 20px;
+}
+.stack-24 > * + * {
+  margin-top: 24px;
+}
+.stack-32 > * + * {
+  margin-top: 32px;
+}
+.stack-40 > * + * {
+  margin-top: 40px;
+}
+
+.mt-40 {
+  margin-top: 40px;
+}
+.mt-56 {
+  margin-top: 56px;
+}
+.mb-56 {
+  margin-bottom: 56px;
+}

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Añadir la línea Sitemap con el dominio definitivo cuando el sitio se publique:
+# Sitemap: https://DOMINIO/sitemap.xml

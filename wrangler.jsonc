@@ -1,0 +1,10 @@
+{
+  "name": "distrito-brokers",
+  "compatibility_date": "2026-07-20",
+  "assets": {
+    "directory": "./site",
+    // URLs limpias: /nosotros sirve site/nosotros/index.html
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}

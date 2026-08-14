@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Distrito Brokers">
+  <rect width="32" height="32" fill="#f4f1ec"/>
+  <rect x="4"  y="4"  width="11" height="11" rx="1" fill="#c0883a"/>
+  <rect x="17" y="4"  width="11" height="11" rx="1" fill="#2f5f9e"/>
+  <rect x="4"  y="17" width="11" height="11" rx="1" fill="#b25236"/>
+  <rect x="17" y="17" width="11" height="11" rx="1" fill="#4f8a52"/>
+</svg>
