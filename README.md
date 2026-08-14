@@ -100,17 +100,22 @@ En el bento del inicio el texto va sobre la fotografía; lo resuelven un velo cr
 (`.bento__item::after`) y un respaldo sólido bajo la etiqueta de esquina, que
 garantizan el contraste sea cual sea la imagen que se cargue.
 
-## Contenido de demostración
+## Contenido
 
-`/propiedades` publica seis fichas de **ejemplo**, marcadas con la etiqueta
-"Ejemplo" y con todos los campos en "Por confirmar". No hay nombres comerciales,
-precios, ubicaciones, metros cuadrados, recámaras ni amenidades inventados; las
-fotografías son de referencia y no corresponden a ningún desarrollo concreto. La
-estructura (`.prop` + `.prop__meta`) está lista para alimentarse desde un CMS.
+`/propiedades` describe **tipos de propiedad** (desarrollo vertical, casas en
+fraccionamiento, preventa, amenidades, inversión, entrega inmediata), no inmuebles
+concretos: no hay nombres comerciales, precios, ubicaciones ni metros cuadrados,
+porque no existe todavía inventario real. Cada ficha es
+`imagen → eyebrow → título → descripción → botón` y lleva a WhatsApp.
 
-Tampoco se inventaron años de experiencia, número de clientes, premios,
-certificaciones ni testimonios: la sección de testimonios del Inicio es un
-*empty state* explícito, igual que en el diseño.
+No se inventaron años de experiencia, número de clientes, premios ni
+certificaciones.
+
+> ⚠️ **Los tres testimonios del Inicio son inventados.** Se generaron a petición
+> del cliente para que el sitio no se vea como un boceto. Publicar testimonios
+> falsos es publicidad engañosa (PROFECO en México, FTC en EE. UU.):
+> **sustituirlos por reseñas reales con autorización de quien las firma antes de
+> lanzar.** Van marcados con un comentario `TODO` en `site/index.html`.
 
 ## Pendientes al publicar
 
@@ -118,9 +123,24 @@ certificaciones ni testimonios: la sección de testimonios del Inicio es un
 2. Canonicals: hoy son relativos (`/nosotros/`); conviene volverlos absolutos.
 3. Correo electrónico, cuando exista.
 4. Fotografía de desarrollos propios, para sustituir las imágenes de referencia.
-5. Testimonios reales.
-6. **Definir el logotipo.** El archivo `Logotipo.png` de la carpeta de assets dice
-   *"Smart Living Brokers"*, un nombre distinto al del sitio. El header y el footer
-   siguen usando el isotipo de cuatro casillas y el lockup tipográfico
-   "Distrito · Brokers" del diseño original. Hay que confirmar cuál es la marca
-   correcta antes de publicar.
+5. **Testimonios reales** (ver aviso arriba).
+6. **Nombre de marca.** El logotipo dice *"Smart Living Brokers"* y todo el copy del
+   sitio dice *"Distrito Brokers"*. Es una decisión consciente del cliente, pero
+   conviene unificarlo antes de lanzar: hoy el header muestra un nombre y el pie de
+   página otro.
+
+## Logotipo
+
+`Logotipo.png` es un lockup **vertical** (isotipo arriba, wordmark debajo). En un
+header horizontal resulta inservible: a 56 px de alto mediría 34 px de ancho y el
+wordmark sería ilegible.
+
+Por eso `site/assets/img/logo.png` es una **recomposición horizontal** generada con
+`sharp`: se recortan los márgenes transparentes (81 % de la imagen), se parte por la
+banda vacía que separa isotipo y wordmark, y se recomponen lado a lado. Resultado
+311×112 (ratio 2.78), que a 56 px de alto ocupa 156 px — un tamaño normal de header.
+
+En el footer el wordmark es azul marino y sobre `#0c1c2e` desaparecería, así que el
+logo va sobre un chip crema (`.brand--dark`).
+
+Favicons: se generan desde `favicon.png`, que es el isotipo sin wordmark.

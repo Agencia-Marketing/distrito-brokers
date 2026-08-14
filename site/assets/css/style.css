@@ -103,8 +103,8 @@
 
 html {
   scroll-behavior: smooth;
-  /* compensa el header sticky al saltar a un ancla */
-  scroll-padding-top: 90px;
+  /* compensa el header sticky al saltar a un ancla (logo 56px + padding) */
+  scroll-padding-top: 112px;
 }
 
 body {
@@ -261,6 +261,12 @@ textarea {
 
 .split--center {
   align-items: center;
+}
+
+/* Las columnas se estiran a la misma altura: usada cuando una de ellas es una
+   imagen que debe igualar la altura del texto de al lado. */
+.split--stretch {
+  align-items: stretch;
 }
 
 .split--tight {
@@ -596,87 +602,36 @@ textarea {
 /* --------------------------------------------------------------------------
    6. Marca
    -------------------------------------------------------------------------- */
+/* El logotipo es el lockup horizontal de la marca (isotipo + wordmark). No lleva
+   texto al lado: la imagen ya contiene su propia firma tipográfica. */
 .brand {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 13px;
-}
-
-.brand__mark {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2.5px;
-  width: 26px;
-  height: 26px;
   flex: none;
 }
 
-.brand__mark span {
-  border-radius: 1px;
+.brand__logo {
+  display: block;
+  height: 56px;
+  width: auto;
 }
 
-.brand__mark span:nth-child(1) {
-  background: var(--gold);
-}
-.brand__mark span:nth-child(2) {
-  background: var(--blue);
-}
-.brand__mark span:nth-child(3) {
-  background: var(--terra);
-}
-.brand__mark span:nth-child(4) {
-  background: var(--green);
+@media (max-width: 599px) {
+  .brand__logo {
+    height: 46px;
+  }
 }
 
-.brand__name {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
+/* En el footer el wordmark es azul marino y sobre el fondo oscuro desaparecería,
+   así que el logo se apoya en un respaldo claro. */
+.brand--dark {
+  background: rgba(244, 241, 236, 0.95);
+  padding: 12px 16px;
+  border-radius: var(--radius);
 }
 
-.brand__word {
-  font-family: var(--serif);
-  font-weight: 500;
-  font-size: 23px;
-  letter-spacing: -0.01em;
-  color: var(--navy);
-}
-
-.brand__tag {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-/* Variante para el footer (fondo oscuro) */
-.brand--dark .brand__mark {
-  width: 24px;
-  height: 24px;
-}
-
-.brand--dark .brand__mark span:nth-child(2) {
-  background: var(--blue-light);
-}
-
-.brand--dark .brand__mark span:nth-child(3) {
-  background: var(--terra-light);
-}
-
-.brand--dark .brand__mark span:nth-child(4) {
-  background: var(--green-light);
-}
-
-.brand--dark .brand__word {
-  font-size: 20px;
-  color: var(--on-dark-strong);
-}
-
-.brand--dark .brand__tag {
-  font-size: 10px;
-  letter-spacing: 0.24em;
-  color: var(--on-dark-muted-2);
+.brand--dark .brand__logo {
+  height: 52px;
 }
 
 /* --------------------------------------------------------------------------
@@ -932,6 +887,28 @@ textarea {
   color: var(--on-dark-muted-2);
 }
 
+/* Imagen que iguala la altura de la columna vecina en un .split.
+   Sustituye la proporción fija por "toda la altura disponible". */
+.ph--fill {
+  height: 100%;
+  min-height: 260px;
+}
+
+/* Columna en la que la imagen absorbe exactamente el espacio que sobra:
+   el resto del contenido conserva su altura natural y la figura crece hasta
+   emparejar la columna vecina, en lugar de sumar una altura fija. */
+.col-fill {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.col-fill > .ph--fill {
+  flex: 1 1 auto;
+  height: auto;
+  min-height: 200px;
+}
+
 .ratio-43 {
   aspect-ratio: 4 / 3;
 }
@@ -943,33 +920,6 @@ textarea {
 }
 .ratio-hero {
   aspect-ratio: 3 / 4.4;
-}
-
-/* Composición de barras de colores (aparece en hero, servicios y CTA) */
-.bars {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-}
-
-.bars span {
-  width: 34px;
-  border-radius: 1px;
-}
-
-.bars span:nth-child(1) {
-  height: 48px;
-  background: var(--gold);
-}
-.bars span:nth-child(2) {
-  height: 64px;
-  background: var(--blue-light);
-  align-self: end;
-}
-.bars span:nth-child(3) {
-  height: 40px;
-  background: var(--green-light);
-  align-self: center;
 }
 
 .swatches {
@@ -1094,39 +1044,6 @@ textarea {
 
 .page-hero .lead {
   margin-bottom: 32px;
-}
-
-/* Migas de pan */
-.breadcrumb {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-  margin: 0 0 22px;
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.breadcrumb a {
-  color: var(--text-2);
-}
-
-.breadcrumb a:hover {
-  color: var(--navy);
-}
-
-.breadcrumb li + li::before {
-  content: "/";
-  margin-right: 8px;
-  color: var(--line-3);
-}
-
-.breadcrumb li {
-  display: flex;
-  align-items: center;
 }
 
 /* --------------------------------------------------------------------------
@@ -1567,115 +1484,75 @@ textarea {
 }
 
 /* --------------------------------------------------------------------------
-   14. Testimonios (estado vacío)
+   14. Testimonios
    -------------------------------------------------------------------------- */
-.testimonial-empty {
-  max-width: 760px;
-}
-
-.testimonial-empty__quote {
-  display: block;
-  height: 40px;
-  font-family: var(--serif);
-  font-size: 72px;
-  line-height: 0.5;
-  color: var(--gold);
-}
-
-.skeleton-lines {
+.testimonial {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin: 8px 0 28px;
-}
-
-.skeleton-lines span {
-  height: 14px;
-  background: var(--navy-line);
-  border-radius: 2px;
-}
-
-.skeleton-lines span:nth-child(1) {
-  width: 96%;
-}
-.skeleton-lines span:nth-child(2) {
-  width: 88%;
-}
-.skeleton-lines span:nth-child(3) {
-  width: 64%;
-}
-
-.skeleton-author {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.skeleton-author__avatar {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--navy-line);
-  flex: none;
-}
-
-.skeleton-author__lines {
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-}
-
-.skeleton-author__lines span {
-  background: var(--navy-line);
-  border-radius: 2px;
-}
-
-.skeleton-author__lines span:nth-child(1) {
-  height: 11px;
-  width: 120px;
-}
-
-.skeleton-author__lines span:nth-child(2) {
-  height: 9px;
-  width: 80px;
-}
-
-.reserved {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 16px;
-  margin-top: 28px;
-}
-
-.reserved__tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--on-dark-faint);
-  border: 1px dashed var(--navy-line-3);
-  padding: 8px 14px;
+  padding: 30px 28px;
+  background: var(--navy-panel);
+  border: 1px solid var(--navy-line-2);
+  border-top: 3px solid var(--accent, var(--gold));
   border-radius: var(--radius);
 }
 
-.reserved__dots {
+.testimonial__quote {
+  display: block;
+  height: 30px;
+  font-family: var(--serif);
+  font-size: 64px;
+  line-height: 0.5;
+  color: var(--accent, var(--gold));
+}
+
+.testimonial blockquote {
+  flex: 1;
+  margin: 0 0 26px;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--on-dark-body);
+  text-wrap: pretty;
+}
+
+.testimonial__author {
   display: flex;
-  gap: 6px;
+  align-items: center;
+  gap: 14px;
+  padding-top: 22px;
+  border-top: 1px solid var(--navy-line-2);
 }
 
-.reserved__dots span {
-  width: 8px;
-  height: 8px;
+.testimonial__avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  background: var(--navy-line-3);
+  background: var(--navy-chip);
+  color: var(--accent, var(--gold));
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
 }
 
-.reserved__dots span:first-child {
-  background: var(--gold);
+.testimonial__name {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--on-dark-strong);
+}
+
+.testimonial__role {
+  display: block;
+  margin-top: 3px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--on-dark-muted);
 }
 
 /* --------------------------------------------------------------------------
@@ -1686,8 +1563,27 @@ textarea {
   overflow: hidden;
 }
 
+/* Fotografía de fondo: el azul oscuro manda y la imagen sólo da textura.
+   La opacidad está calibrada para que el texto conserve contraste AA. */
+.cta__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* 0.22 es el máximo medido que mantiene todo el texto del CTA por encima de
+   AA (4.5:1) contra el píxel más claro de la foto. A 0.26 el eyebrow cae a 4.41. */
+.cta__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.22;
+}
+
 .cta__decor {
   position: absolute;
+  z-index: 1;
   top: 0;
   right: 0;
   display: grid;
@@ -2074,17 +1970,14 @@ textarea {
   border-top: 3px solid var(--accent, var(--gold));
 }
 
-.prop__badge {
-  align-self: flex-start;
-  margin-bottom: 14px;
-  padding: 5px 10px;
-  border: 1px dashed var(--line-3);
-  border-radius: var(--radius);
+.prop__eyebrow {
+  display: block;
+  margin-bottom: 12px;
   font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.14em;
+  font-size: 11px;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--accent, var(--gold));
 }
 
 .prop h3 {
@@ -2097,37 +1990,18 @@ textarea {
 }
 
 .prop__desc {
-  font-size: 14px;
-  line-height: 1.55;
+  flex: 1;
+  font-size: 15px;
+  line-height: 1.6;
   color: var(--text-2);
-  margin-bottom: 18px;
+  margin-bottom: 24px;
+  text-wrap: pretty;
 }
 
-.prop__meta {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px 16px;
-  margin: 0 0 20px;
-  padding-top: 16px;
-  border-top: 1px solid var(--line);
-}
-
-.prop__meta dt {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 4px;
-}
-
-.prop__meta dd {
-  margin: 0;
-  font-size: 14px;
-  color: var(--navy);
-}
-
-.prop__body .link-wa {
+/* El CTA de la ficha es un botón sólido, igual que el resto del sitio */
+.prop__body .btn {
+  width: 100%;
+  justify-content: center;
   margin-top: auto;
 }
 

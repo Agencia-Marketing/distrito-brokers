@@ -12,7 +12,9 @@
 <meta property="og:locale" content="es_MX">
 <meta property="og:title" content="Servicios | Distrito Brokers">
 <meta property="og:description" content="Venta de bienes raíces, gestión de créditos hipotecarios y servicio Máster Broker.">
-<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/assets/img/favicon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Archivo:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -25,11 +27,8 @@
 <header class="site-header">
   <div class="site-header__inner">
     <a class="brand" href="/" aria-label="Distrito Brokers, ir al inicio">
-      <span class="brand__mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
-      <span class="brand__name">
-        <span class="brand__word">Distrito</span>
-        <span class="brand__tag">Brokers</span>
-      </span>
+      <img class="brand__logo" src="/assets/img/logo.png" width="311" height="112"
+           alt="Distrito Brokers">
     </a>
 
     <nav class="nav" aria-label="Navegación principal">
@@ -70,10 +69,6 @@
   <section class="page-hero container">
     <div class="page-hero__grid">
       <div class="measure">
-        <ol class="breadcrumb">
-          <li><a href="/">Inicio</a></li>
-          <li>Servicios</li>
-        </ol>
         <p class="eyebrow">Nuestros servicios</p>
         <h1 class="h-display">Todo el camino a tu vivienda, <span class="accent-italic">acompañado</span>.</h1>
         <p class="lead measure-sm">Tres servicios que funcionan juntos: encontrar la opción, entender cómo pagarla y tener a alguien que responda por el proceso completo.</p>
@@ -173,7 +168,7 @@
   <!-- ======================= 02 · CRÉDITO HIPOTECARIO ======================= -->
   <section class="section section--dark" id="credito">
     <div class="container">
-      <div class="split">
+      <div class="split split--stretch">
         <div>
           <span class="service-row__idx" style="color:#3a5573;" aria-hidden="true">02</span>
           <h2 class="h-section" style="margin:14px 0 20px;">Gestión de créditos hipotecarios</h2>
@@ -188,7 +183,7 @@
           </div>
         </div>
 
-        <div class="stack-16">
+        <div class="stack-16 col-fill">
           <div class="converge">
             <p class="converge__foot" style="margin:0 0 20px;">Qué revisamos contigo</p>
             <div class="converge__list">
@@ -221,6 +216,14 @@
             </a>
             <a class="btn btn--ghost" href="tel:+523313593919">Agendar una llamada →</a>
           </div>
+
+          <figure class="ph ph--fill">
+            <img src="/assets/img/credito-financiamiento.webp"
+                 srcset="/assets/img/credito-financiamiento.webp 640w, /assets/img/credito-financiamiento@2x.webp 1100w"
+                 sizes="(max-width: 800px) 92vw, 560px"
+                 width="640" height="360" loading="lazy" decoding="async"
+                 alt="Entrega de llaves sobre una mesa con maqueta de casa, calculadora y documentos.">
+          </figure>
         </div>
       </div>
     </div>
@@ -262,9 +265,13 @@
       </div>
 
       <div class="split split--center mt-56">
-        <div class="ph ph--navy ratio-169 service-row__media">
-          <span class="bars" aria-hidden="true"><span></span><span></span><span></span></span>
-        </div>
+        <figure class="ph ratio-169 service-row__media">
+          <img src="/assets/img/servicios-master-broker.webp"
+               srcset="/assets/img/servicios-master-broker.webp 700w, /assets/img/servicios-master-broker@2x.webp 1200w"
+               sizes="(max-width: 700px) 92vw, 600px"
+               width="700" height="394" loading="lazy" decoding="async"
+               alt="Una asesora entrega las llaves de su vivienda a una pareja.">
+        </figure>
         <div>
           <h3 class="h-sub" style="margin-bottom:16px;">¿Cómo se traduce en tu día a día?</h3>
           <p class="body-text measure-md">Escribes una vez, explicas tu caso una vez y recibes opciones de varias fuentes. Si algo no encaja, ajustamos la búsqueda en la misma conversación.</p>
@@ -276,6 +283,11 @@
 
   <!-- ======================= CTA FINAL ======================= -->
   <section class="section--darkest cta">
+    <div class="cta__bg" aria-hidden="true">
+      <img src="/assets/img/cta-fondo.webp"
+           srcset="/assets/img/cta-fondo.webp 1200w, /assets/img/cta-fondo@2x.webp 1900w"
+           sizes="100vw" width="1200" height="675" loading="lazy" decoding="async" alt="">
+    </div>
     <div class="cta__decor" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
     <div class="container">
       <div class="cta__inner">
@@ -301,11 +313,8 @@
     <div class="site-footer__grid">
       <div class="site-footer__brand">
         <div class="brand brand--dark">
-          <span class="brand__mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
-          <span class="brand__name">
-            <span class="brand__word">Distrito</span>
-            <span class="brand__tag">Brokers</span>
-          </span>
+          <img class="brand__logo" src="/assets/img/logo.png" width="311" height="112"
+               alt="Distrito Brokers">
         </div>
         <p class="site-footer__slogan">Las mejores inversiones inmobiliarias en un mismo lugar.</p>
       </div>

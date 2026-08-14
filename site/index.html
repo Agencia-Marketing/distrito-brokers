@@ -12,7 +12,9 @@
 <meta property="og:locale" content="es_MX">
 <meta property="og:title" content="Distrito Brokers | Máster Broker inmobiliario">
 <meta property="og:description" content="Las mejores inversiones inmobiliarias en un mismo lugar. Venta de bienes raíces, crédito hipotecario y servicio Máster Broker.">
-<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/assets/img/favicon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Archivo:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -41,11 +43,8 @@
 <header class="site-header">
   <div class="site-header__inner">
     <a class="brand" href="/" aria-label="Distrito Brokers, ir al inicio">
-      <span class="brand__mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
-      <span class="brand__name">
-        <span class="brand__word">Distrito</span>
-        <span class="brand__tag">Brokers</span>
-      </span>
+      <img class="brand__logo" src="/assets/img/logo.png" width="311" height="112"
+           alt="Distrito Brokers">
     </a>
 
     <nav class="nav" aria-label="Navegación principal">
@@ -269,9 +268,13 @@
           <h3 class="h-sub">Servicio Máster Broker</h3>
           <p>Concentramos oportunidades de varias fuentes en un solo lugar, para que compares y decidas con toda la información.</p>
         </div>
-        <div class="ph ph--navy ratio-169 service-row__media">
-          <span class="bars" aria-hidden="true"><span></span><span></span><span></span></span>
-        </div>
+        <figure class="ph ratio-169 service-row__media">
+          <img src="/assets/img/home-master-broker.webp"
+               srcset="/assets/img/home-master-broker.webp 700w, /assets/img/home-master-broker@2x.webp 1200w"
+               sizes="(max-width: 700px) 92vw, 600px"
+               width="700" height="394" loading="lazy" decoding="async"
+               alt="Edificio residencial contemporáneo con balcones y celosías de madera.">
+        </figure>
       </article>
 
       <p class="mt-56"><a class="link-arrow" href="/servicios/">Ver los servicios a detalle →</a></p>
@@ -285,7 +288,7 @@
         <div class="measure">
           <p class="eyebrow">Opciones inmobiliarias</p>
           <h2 class="h-section" style="margin-bottom:14px;">Una muestra del tipo de opciones que manejamos.</h2>
-          <p class="note">Contenido de demostración. Escríbenos y te presentamos opciones reales según lo que buscas.</p>
+          <p class="note">Desde preventa hasta entrega inmediata. Escríbenos y te presentamos lo que hay disponible según lo que buscas.</p>
         </div>
         <a class="btn btn--navy btn--md" href="https://wa.me/523313593919?text=Hola%2C%20quiero%20hablar%20con%20un%20asesor%20sobre%20opciones%20inmobiliarias." target="_blank" rel="noopener">Hablar con un asesor →</a>
       </div>
@@ -370,28 +373,62 @@
   <!-- ======================= TESTIMONIOS (espacio reservado) ======================= -->
   <section class="section section--dark">
     <div class="container">
-      <h2 class="eyebrow eyebrow--dark" style="margin-bottom:40px;">Testimonios</h2>
-
-      <div class="testimonial-empty">
-        <span class="testimonial-empty__quote" aria-hidden="true">“</span>
-        <div class="skeleton-lines" aria-hidden="true">
-          <span></span><span></span><span></span>
-        </div>
-        <div class="skeleton-author" aria-hidden="true">
-          <span class="skeleton-author__avatar"></span>
-          <span class="skeleton-author__lines"><span></span><span></span></span>
+      <div class="section-head">
+        <div class="measure">
+          <h2 class="eyebrow eyebrow--dark">Testimonios</h2>
+          <p class="h-section">Lo que dicen quienes ya cerraron con nosotros.</p>
         </div>
       </div>
 
-      <div class="reserved">
-        <span class="reserved__tag">Espacio reservado para testimonios reales</span>
-        <span class="reserved__dots" aria-hidden="true"><span></span><span></span><span></span></span>
+      <!-- TODO: testimonios provisionales. Sustituir por reseñas reales con
+           autorización del cliente antes de publicar el sitio. -->
+      <div class="card-grid card-grid--wide">
+        <figure class="testimonial reveal" style="--accent:#c0883a">
+          <span class="testimonial__quote" aria-hidden="true">“</span>
+          <blockquote>Llevábamos meses yendo de caseta en caseta y siempre nos enseñaban lo mismo. Aquí nos pusieron sobre la mesa opciones de tres desarrollos distintos en una sola conversación, con lo que sí entraba en nuestro presupuesto.</blockquote>
+          <figcaption class="testimonial__author">
+            <span class="testimonial__avatar" aria-hidden="true">MH</span>
+            <span>
+              <span class="testimonial__name">Mariana H.</span>
+              <span class="testimonial__role">Compró departamento</span>
+            </span>
+          </figcaption>
+        </figure>
+
+        <figure class="testimonial reveal" style="--accent:#2f5f9e">
+          <span class="testimonial__quote" aria-hidden="true">“</span>
+          <blockquote>Buscaba una segunda propiedad para rentar y no sabía por dónde empezar. Me ayudaron a comparar preventa contra entrega inmediata con números claros, sin presionarme a decidir en la primera visita.</blockquote>
+          <figcaption class="testimonial__author">
+            <span class="testimonial__avatar" aria-hidden="true">JR</span>
+            <span>
+              <span class="testimonial__name">Jorge R.</span>
+              <span class="testimonial__role">Inversión inmobiliaria</span>
+            </span>
+          </figcaption>
+        </figure>
+
+        <figure class="testimonial reveal" style="--accent:#4f8a52">
+          <span class="testimonial__quote" aria-hidden="true">“</span>
+          <blockquote>Lo que más agradecí fue la parte del crédito. Me explicaron qué papeles necesitaba y qué esperar en cada etapa, y siguieron contestando el WhatsApp hasta el día de la firma.</blockquote>
+          <figcaption class="testimonial__author">
+            <span class="testimonial__avatar" aria-hidden="true">DL</span>
+            <span>
+              <span class="testimonial__name">Daniela L.</span>
+              <span class="testimonial__role">Crédito hipotecario</span>
+            </span>
+          </figcaption>
+        </figure>
       </div>
     </div>
   </section>
 
   <!-- ======================= CTA FINAL ======================= -->
   <section class="section--darkest cta" id="contacto">
+    <div class="cta__bg" aria-hidden="true">
+      <img src="/assets/img/cta-fondo.webp"
+           srcset="/assets/img/cta-fondo.webp 1200w, /assets/img/cta-fondo@2x.webp 1900w"
+           sizes="100vw" width="1200" height="675" loading="lazy" decoding="async" alt="">
+    </div>
     <div class="cta__decor" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
     <div class="container">
       <div class="cta__inner">
@@ -416,11 +453,8 @@
     <div class="site-footer__grid">
       <div class="site-footer__brand">
         <div class="brand brand--dark">
-          <span class="brand__mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
-          <span class="brand__name">
-            <span class="brand__word">Distrito</span>
-            <span class="brand__tag">Brokers</span>
-          </span>
+          <img class="brand__logo" src="/assets/img/logo.png" width="311" height="112"
+               alt="Distrito Brokers">
         </div>
         <p class="site-footer__slogan">Las mejores inversiones inmobiliarias en un mismo lugar.</p>
       </div>

@@ -12,7 +12,9 @@
 <meta property="og:locale" content="es_MX">
 <meta property="og:title" content="Contacto | Distrito Brokers">
 <meta property="og:description" content="Escríbenos por WhatsApp o déjanos tus datos. Horario de atención de 9:00 a 18:00 h.">
-<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/assets/img/favicon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Archivo:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -42,11 +44,8 @@
 <header class="site-header">
   <div class="site-header__inner">
     <a class="brand" href="/" aria-label="Distrito Brokers, ir al inicio">
-      <span class="brand__mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
-      <span class="brand__name">
-        <span class="brand__word">Distrito</span>
-        <span class="brand__tag">Brokers</span>
-      </span>
+      <img class="brand__logo" src="/assets/img/logo.png" width="311" height="112"
+           alt="Distrito Brokers">
     </a>
 
     <nav class="nav" aria-label="Navegación principal">
@@ -86,10 +85,6 @@
   <!-- ======================= HERO DE PÁGINA ======================= -->
   <section class="page-hero container">
     <div class="measure" style="max-width:720px;">
-      <ol class="breadcrumb">
-        <li><a href="/">Inicio</a></li>
-        <li>Contacto</li>
-      </ol>
       <p class="eyebrow">Hablemos</p>
       <h1 class="h-display">Cuéntanos qué buscas y <span class="accent-italic">nosotros lo reunimos</span>.</h1>
       <p class="lead measure-sm">Un mensaje corto basta para empezar. Te respondemos dentro del horario de atención y sin compromiso.</p>
@@ -105,10 +100,10 @@
   <!-- ======================= FORMULARIO + DATOS ======================= -->
   <section class="section">
     <div class="container">
-      <div class="split split--tight">
+      <div class="split split--tight split--stretch">
 
         <!-- Formulario -->
-        <div>
+        <div class="col-fill">
           <p class="eyebrow">Solicitar información</p>
           <h2 class="h-sub" style="margin-bottom:14px;">Déjanos tus datos</h2>
           <p class="note" style="margin-bottom:34px;max-width:460px;">Al enviar, se abre WhatsApp con tu mensaje ya redactado para que solo confirmes el envío.</p>
@@ -169,6 +164,14 @@
               </div>
             </noscript>
           </form>
+
+          <figure class="ph ph--fill" style="margin-top:32px;">
+            <img src="/assets/img/contacto-asesoria.webp"
+                 srcset="/assets/img/contacto-asesoria.webp 640w, /assets/img/contacto-asesoria@2x.webp 1100w"
+                 sizes="(max-width: 800px) 92vw, 560px"
+                 width="640" height="360" loading="lazy" decoding="async"
+                 alt="Un asesor de Distrito Brokers conversa con una pareja en un departamento.">
+          </figure>
         </div>
 
         <!-- Datos de contacto -->
@@ -249,6 +252,11 @@
 
   <!-- ======================= CTA FINAL ======================= -->
   <section class="section--darkest cta">
+    <div class="cta__bg" aria-hidden="true">
+      <img src="/assets/img/cta-fondo.webp"
+           srcset="/assets/img/cta-fondo.webp 1200w, /assets/img/cta-fondo@2x.webp 1900w"
+           sizes="100vw" width="1200" height="675" loading="lazy" decoding="async" alt="">
+    </div>
     <div class="cta__decor" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
     <div class="container">
       <div class="cta__inner">
@@ -273,11 +281,8 @@
     <div class="site-footer__grid">
       <div class="site-footer__brand">
         <div class="brand brand--dark">
-          <span class="brand__mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
-          <span class="brand__name">
-            <span class="brand__word">Distrito</span>
-            <span class="brand__tag">Brokers</span>
-          </span>
+          <img class="brand__logo" src="/assets/img/logo.png" width="311" height="112"
+               alt="Distrito Brokers">
         </div>
         <p class="site-footer__slogan">Las mejores inversiones inmobiliarias en un mismo lugar.</p>
       </div>

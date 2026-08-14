@@ -12,7 +12,9 @@
 <meta property="og:locale" content="es_MX">
 <meta property="og:title" content="Nosotros | Distrito Brokers">
 <meta property="og:description" content="Cómo funciona el modelo Máster Broker y qué significa para ti como comprador o inversionista.">
-<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/assets/img/favicon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Archivo:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -25,11 +27,8 @@
 <header class="site-header">
   <div class="site-header__inner">
     <a class="brand" href="/" aria-label="Distrito Brokers, ir al inicio">
-      <span class="brand__mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
-      <span class="brand__name">
-        <span class="brand__word">Distrito</span>
-        <span class="brand__tag">Brokers</span>
-      </span>
+      <img class="brand__logo" src="/assets/img/logo.png" width="311" height="112"
+           alt="Distrito Brokers">
     </a>
 
     <nav class="nav" aria-label="Navegación principal">
@@ -70,10 +69,6 @@
   <section class="page-hero container">
     <div class="page-hero__grid">
       <div class="measure">
-        <ol class="breadcrumb">
-          <li><a href="/">Inicio</a></li>
-          <li>Nosotros</li>
-        </ol>
         <p class="eyebrow">Quiénes somos</p>
         <h1 class="h-display">Un solo interlocutor entre tú y <span class="accent-italic">todo el mercado</span>.</h1>
         <p class="lead measure-sm">Distrito Brokers es un Máster Broker inmobiliario: trabajamos con asesorías independientes y comercializamos vivienda de diferentes constructoras y desarrollos.</p>
@@ -111,16 +106,22 @@
   <!-- ======================= QUIÉNES SOMOS ======================= -->
   <section class="section">
     <div class="container">
-      <div class="split">
-        <div>
-          <p class="eyebrow">La empresa</p>
-          <h2 class="h-section">Bienes raíces, sin tener que tocar todas las puertas.</h2>
-        </div>
+      <div class="split split--stretch">
         <div class="stack-20">
+          <p class="eyebrow">La empresa</p>
+          <h2 class="h-section" style="margin-bottom:12px;">Bienes raíces, sin tener que tocar todas las puertas.</h2>
           <p class="body-text">Comprar vivienda o invertir en bienes raíces implica comparar desarrollos, entender esquemas de financiamiento y coordinar con más de una empresa a la vez. Ese trabajo suele recaer en el comprador.</p>
           <p class="body-text">Distrito Brokers existe para absorber esa parte. Concentramos las opciones, hacemos el filtro y te presentamos únicamente lo que corresponde con lo que buscas, tu presupuesto y tus posibilidades de crédito.</p>
           <p class="body-text">El acompañamiento no termina en la elección: seguimos contigo durante los trámites y hasta el cierre.</p>
         </div>
+
+        <figure class="ph ph--fill reveal">
+          <img src="/assets/img/nosotros-empresa.webp"
+               srcset="/assets/img/nosotros-empresa.webp 560w, /assets/img/nosotros-empresa@2x.webp 960w"
+               sizes="(max-width: 800px) 92vw, 560px"
+               width="560" height="487" loading="lazy" decoding="async"
+               alt="Equipo de asesores de Distrito Brokers frente a un edificio.">
+        </figure>
       </div>
     </div>
   </section>
@@ -251,6 +252,11 @@
 
   <!-- ======================= CTA FINAL ======================= -->
   <section class="section--darkest cta">
+    <div class="cta__bg" aria-hidden="true">
+      <img src="/assets/img/cta-fondo.webp"
+           srcset="/assets/img/cta-fondo.webp 1200w, /assets/img/cta-fondo@2x.webp 1900w"
+           sizes="100vw" width="1200" height="675" loading="lazy" decoding="async" alt="">
+    </div>
     <div class="cta__decor" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
     <div class="container">
       <div class="cta__inner">
@@ -275,11 +281,8 @@
     <div class="site-footer__grid">
       <div class="site-footer__brand">
         <div class="brand brand--dark">
-          <span class="brand__mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
-          <span class="brand__name">
-            <span class="brand__word">Distrito</span>
-            <span class="brand__tag">Brokers</span>
-          </span>
+          <img class="brand__logo" src="/assets/img/logo.png" width="311" height="112"
+               alt="Distrito Brokers">
         </div>
         <p class="site-footer__slogan">Las mejores inversiones inmobiliarias en un mismo lugar.</p>
       </div>
