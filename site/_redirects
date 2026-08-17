@@ -1,0 +1,11 @@
+# Las páginas internas desaparecieron al pasar el sitio a one-page.
+# Se redirige a su sección para no romper enlaces ya publicados.
+# Hacen falta las dos formas: sin barra final y con ella (o con subrutas).
+/nosotros        /#nosotros     301
+/nosotros/*      /#nosotros     301
+/servicios       /#servicios    301
+/servicios/*     /#servicios    301
+/propiedades     /#propiedades  301
+/propiedades/*   /#propiedades  301
+/contacto        /#contacto     301
+/contacto/*      /#contacto     301

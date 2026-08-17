@@ -11,23 +11,26 @@ JavaScript de terceros.
 
 ## Estructura
 
+El sitio es **one-page**: todo vive en `index.html` y el menú navega por anclas.
+
 ```
 site/
-  index.html            Inicio  →  /
-  nosotros/index.html   Nosotros →  /nosotros
-  servicios/index.html  Servicios → /servicios
-  propiedades/index.html Propiedades y desarrollos → /propiedades
-  contacto/index.html   Contacto → /contacto
+  index.html    Única página. Secciones: hero · #nosotros · Máster Broker ·
+                ¿Qué buscas? · #servicios · #propiedades · proceso ·
+                testimonios · #contacto · CTA final
   404.html
+  _redirects    Las URLs antiguas (/nosotros, /servicios…) → su sección
   robots.txt
   assets/
-    css/style.css       Sistema visual completo (tokens + componentes)
-    js/main.js          Menú móvil, apariciones, formulario → WhatsApp, año
-    img/favicon.svg
+    css/style.css   Sistema visual completo (tokens + componentes)
+    js/main.js      Menú móvil, apariciones, formulario → WhatsApp, año
+    img/
 ```
 
-Las URLs son limpias (`/nosotros`, no `/nosotros.html`) gracias a
-`html_handling: auto-trailing-slash` en `wrangler.jsonc`.
+El menú del header conserva las cinco etiquetas de siempre, pero cada una
+apunta a `#nosotros`, `#servicios`, `#propiedades` o `#contacto`.
+`scroll-padding-top: 112px` mantiene el destino por debajo del header fijo
+(87 px), con 25 px de holgura.
 
 ## Desarrollo
 
