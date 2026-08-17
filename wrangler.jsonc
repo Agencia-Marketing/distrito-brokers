@@ -1,5 +1,8 @@
 {
   "name": "distrito-brokers",
+  // La sesión de wrangler tiene varias cuentas; fijarla evita desplegar por
+  // error en la de otro cliente.
+  "account_id": "b4de9830e2439fbae8c22197183b60c3",
   "compatibility_date": "2026-07-20",
   "assets": {
     "directory": "./site",
