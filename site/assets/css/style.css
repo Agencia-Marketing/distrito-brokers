@@ -226,6 +226,12 @@ textarea {
   border-top: 1px solid var(--line);
 }
 
+/* Primera sección tras el hero: con el padding completo, sumado al del hero,
+   queda demasiado aire entre ambos. */
+.section--tight-top {
+  padding-top: clamp(40px, 5vw, 72px);
+}
+
 .section--alt {
   background: var(--cream-alt);
   border-top: 1px solid var(--line);
@@ -953,7 +959,9 @@ textarea {
 .hero {
   position: relative;
   padding-top: clamp(48px, 7vw, 96px);
-  padding-bottom: clamp(56px, 7vw, 104px);
+  /* Recortado: se suma al padding-top de la sección siguiente y entre ambos
+     dejaban ~229px de aire en escritorio. */
+  padding-bottom: clamp(40px, 5vw, 72px);
 }
 
 .hero__grid {
