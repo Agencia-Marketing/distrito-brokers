@@ -1188,6 +1188,17 @@ textarea {
   color: var(--accent, var(--gold));
 }
 
+/* Banda fotográfica que ocupa el hueco entre el número y el bloque de texto.
+   Con flex crece hasta llenar justo lo que sobra, así que las tarjetas siguen
+   midiendo lo mismo entre sí; los márgenes negativos la llevan a sangre. */
+.choice__media {
+  flex: 1 1 auto;
+  min-height: 96px;
+  margin: 20px -26px;
+  border-left: 0;
+  border-right: 0;
+}
+
 .choice h3 {
   font-family: var(--serif);
   font-weight: 500;
@@ -1225,6 +1236,25 @@ textarea {
 
 .card-grid--index .choice p {
   margin-bottom: 10px;
+}
+
+/* En la variante compacta la foto va como miniatura al final de la fila */
+.card-grid--index .choice > div {
+  flex: 1;
+}
+
+.choice__thumb {
+  flex: none;
+  width: 84px;
+  height: 84px;
+  align-self: center;
+}
+
+@media (max-width: 419px) {
+  .choice__thumb {
+    width: 64px;
+    height: 64px;
+  }
 }
 
 /* Card genérica sobre fondo claro */
