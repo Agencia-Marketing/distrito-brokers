@@ -137,6 +137,104 @@
   }
 
   /* ---------------------------------------------------------------------
+     Vídeo de fondo
+     Va en autoplay silenciado, pero quien pide menos movimiento no debería
+     recibir un bucle de vídeo: se detiene y queda el poster.
+     --------------------------------------------------------------------- */
+  var fondoVideo = document.querySelector(".cta__bg video");
+
+  if (fondoVideo && !reduceMotion) {
+    // Son 2.6 MB para la última sección: no se descargan hasta que hace falta.
+    var cargarVideo = function () {
+      if (fondoVideo.src) return;
+      fondoVideo.src = fondoVideo.getAttribute("data-src");
+      var intento = fondoVideo.play();
+      if (intento && intento.catch) intento.catch(function () {});
+    };
+    if ("IntersectionObserver" in window) {
+      var ojo = new IntersectionObserver(function (entradas, obs) {
+        entradas.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          cargarVideo();
+          obs.disconnect();
+        });
+      }, { rootMargin: "600px 0px" });
+      ojo.observe(fondoVideo);
+    } else {
+      cargarVideo();
+    }
+  }
+
+  /* ---------------------------------------------------------------------
+     Slideshows automáticos
+     Cada .slideshow apila varias imágenes y va alternando cuál lleva la clase
+     .is-active. Sólo corren mientras están en pantalla: con trece fichas a la
+     vez, animarlas todas de fondo gasta batería sin que nadie las vea.
+     --------------------------------------------------------------------- */
+  var slideshows = [].slice.call(document.querySelectorAll(".slideshow"));
+
+  if (slideshows.length && !reduceMotion) {
+    var INTERVALO = 4000;
+
+    var arrancar = function (caja) {
+      if (caja._temporizador) return;
+      var fotos = caja.querySelectorAll("img");
+      if (fotos.length < 2) return;
+      // Arranque escalonado para que no cambien todas al unísono.
+      var retraso = (caja._orden % 5) * 700;
+      caja._inicio = window.setTimeout(function () {
+        caja._temporizador = window.setInterval(function () {
+          var actual = caja.querySelector("img.is-active") || fotos[0];
+          var i = [].indexOf.call(fotos, actual);
+          var siguiente = fotos[(i + 1) % fotos.length];
+          // Se carga la siguiente antes de mostrarla para que no parpadee.
+          if (siguiente.loading === "lazy") siguiente.loading = "eager";
+          actual.classList.remove("is-active");
+          siguiente.classList.add("is-active");
+        }, INTERVALO);
+      }, retraso);
+    };
+
+    var parar = function (caja) {
+      window.clearTimeout(caja._inicio);
+      window.clearInterval(caja._temporizador);
+      caja._inicio = null;
+      caja._temporizador = null;
+    };
+
+    slideshows.forEach(function (caja, i) {
+      caja._orden = i;
+      // Por si el observador no llegara a disparar, que al menos se vea una.
+      if (!caja.querySelector("img.is-active")) {
+        var primera = caja.querySelector("img");
+        if (primera) primera.classList.add("is-active");
+      }
+    });
+
+    if ("IntersectionObserver" in window) {
+      var vigia = new IntersectionObserver(
+        function (entradas) {
+          entradas.forEach(function (e) {
+            if (e.isIntersecting) arrancar(e.target);
+            else parar(e.target);
+          });
+        },
+        { rootMargin: "120px 0px" }
+      );
+      slideshows.forEach(function (caja) {
+        vigia.observe(caja);
+      });
+    } else {
+      slideshows.forEach(arrancar);
+    }
+
+    // Al cambiar de pestaña no tiene sentido seguir animando.
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) slideshows.forEach(parar);
+    });
+  }
+
+  /* ---------------------------------------------------------------------
      Año en curso en el footer
      --------------------------------------------------------------------- */
   var years = document.querySelectorAll("[data-year]");

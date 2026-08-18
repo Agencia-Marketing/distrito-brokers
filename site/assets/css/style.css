@@ -915,6 +915,26 @@ textarea {
   min-height: 200px;
 }
 
+/* --------------------------------------------------------------------------
+   8b. Slideshow
+   Varias imágenes apiladas dentro del mismo marco .ph; el JS alterna la clase
+   .is-active. Sin JS se queda visible la primera, que ya la trae puesta.
+   -------------------------------------------------------------------------- */
+.slideshow img {
+  opacity: 0;
+  transition: opacity 0.8s var(--ease);
+}
+
+.slideshow img.is-active {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slideshow img {
+    transition: none;
+  }
+}
+
 .ratio-43 {
   aspect-ratio: 4 / 3;
 }
@@ -1630,13 +1650,16 @@ textarea {
   pointer-events: none;
 }
 
-/* 0.22 es el máximo medido que mantiene todo el texto del CTA por encima de
-   AA (4.5:1) contra el píxel más claro de la foto. A 0.26 el eyebrow cae a 4.41. */
-.cta__bg img {
+/* El vídeo tiene zonas de blanco puro, más claras que la foto anterior, así que
+   baja el máximo admisible: a 0.15 todo el texto del CTA queda sobre AA (4.5:1)
+   contra el fotograma más claro; a 0.18 el eyebrow ya cae a 4.46. */
+.cta__bg img,
+.cta__bg video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.22;
+  opacity: 0.15;
+  display: block;
 }
 
 .cta__decor {
@@ -2056,11 +2079,18 @@ textarea {
   text-wrap: pretty;
 }
 
-/* El CTA de la ficha es un botón sólido, igual que el resto del sitio */
-.prop__body .btn {
+/* Los CTA de la ficha: WhatsApp sólido y brochure secundario, apilados y a
+   ancho completo. El margen automático empuja el grupo al pie de la ficha. */
+.prop__acciones {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.prop__acciones .btn {
   width: 100%;
   justify-content: center;
-  margin-top: auto;
 }
 
 /* Aviso de contenido de demostración */
